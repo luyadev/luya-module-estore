@@ -1,0 +1,34 @@
+{
+    "minimum-stability" : "RC",
+    "name" : "luyadev/luya-module-estore",
+    "description" : "E-Store",
+    "type" : "luya-module",
+    "keywords" : ["php", "luya", "module", "cms", "yii2", "yii"],
+    "license": "MIT",
+    "homepage" : "http://luya.io",
+    "authors" : [
+        {
+            "name" : "Basil Suter",
+            "email" : "git@nadar.io",
+            "homepage" : "https://github.com/nadar"
+        }
+    ],
+    "require-dev" : {
+        "luyadev/luya-testsuite" : "~1.0.0"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "luya\\estore\\" : "src/"
+        }
+    },
+    "autoload-dev" : {
+        "psr-4" : {
+            "luya\\estore\\tests\\" : "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
