@@ -21,7 +21,7 @@ class m170515_115236_basetables extends Migration
             'product_id' => $this->integer()->notNull(),
         ]);
         
-        $this->addPrimaryKey('estore_product_group_pk', '{{%estore_product_group}}', ['group_id', 'product_id']);
+        $this->addPrimaryKey('estore_product_group_pk', '{{%estore_product_group_ref}}', ['group_id', 'product_id']);
         
         $this->createTable('{{%estore_product}}', [
             'id' => $this->primaryKey(),
@@ -68,7 +68,7 @@ class m170515_115236_basetables extends Migration
         $this->createTable('{{%estore_article_price}}', [
             'article_id' => $this->integer()->notNull(),
             'currency_id' => $this->integer()->notNull(),
-            'qty' => $this->integer()->notNull(), // 0 = which means this price counts independent about how many items u have in your basket | 10 = When 10 or more items, this price is used to calculat for each item.
+            'qty' => $this->integer()->notNull(), // 0 = which means this price counts independent about how many items u have in your basket | 10 = When you hvae 10 or more items in your basket, this price is used to calculate for each item.
             'price' => $this->float(2)->notNull(),
         ]);
         
@@ -89,5 +89,20 @@ class m170515_115236_basetables extends Migration
 
     public function safeDown()
     {
+        $this->dropTable('{{%estore_group}}');
+        $this->dropTable('{{%estore_product_group_ref}}');
+        $this->dropPrimaryKey('estore_product_group_pk', '{{%estore_product_group_ref}}');
+        $this->dropTable('{{%estore_product}}');
+        $this->dropTable('{{%estore_set}}');
+        $this->dropTable('{{%estore_set_attribute}}');
+        $this->dropTable('{{%estore_set_attribute_ref}}');
+        $this->dropPrimaryKey('estore_set_attribute_ref_pk', '{{%estore_set_attribute_ref}}');
+        $this->dropTable('{{%estore_article}}');
+        $this->dropTable('{{%estore_article_attribute_value}}');
+        $this->dropPrimaryKey('estore_article_attribute_value_pk', '{{%estore_article_attribute_value}}');
+        $this->dropTable('{{%estore_article_price}}');
+        $this->dropPrimaryKey('estore_article_attribute_value_pk', '{{%estore_article_attribute_value}}');
+        $this->dropTable('{{%estore_currency}}');
+        $this->dropTable('{{%estore_producer}}');
     }
 }
