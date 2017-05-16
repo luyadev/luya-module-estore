@@ -14,7 +14,7 @@
         }
     ],
     "require" : {
-        "luyadev/luya-module-admin" : "1.0.0-RC3"
+        "luyadev/luya-module-admin" : "^1.0@dev"
     },
     "require-dev" : {
         "luyadev/luya-testsuite" : "^1.0@dev"
