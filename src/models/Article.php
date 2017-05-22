@@ -80,7 +80,7 @@ class Article extends NgRestModel
     public function ngRestAttributeTypes()
     {
         return [
-            'product_id' => 'number',
+            'product_id' => ['selectModel', 'modelClass' => Product::class],
             'name' => 'text',
             'sku' => 'text',
             'qty_available' => 'number',

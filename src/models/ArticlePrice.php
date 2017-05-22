@@ -77,8 +77,8 @@ class ArticlePrice extends NgRestModel
     public function ngRestAttributeTypes()
     {
         return [
-            'article_id' => 'number',
-            'currency_id' => 'number',
+            'article_id' => ['selectModel', 'modelClass' => Article::class],
+            'currency_id' => ['selectModel', 'modelClass' => Currency::class],
             'qty' => 'number',
             'price' => 'decimal',
         ];

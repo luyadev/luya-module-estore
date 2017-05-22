@@ -1,8 +1,10 @@
 <?php
 
-namespace app\models;
+namespace luya\estore\models;
 
 use Yii;
+use luya\estore\models\Group;
+use luya\estore\models\Product;
 
 /**
  * This is the model class for table "estore_product_group_ref".
@@ -40,5 +42,15 @@ class ProductGroupRef extends \yii\db\ActiveRecord
             'group_id' => 'Group ID',
             'product_id' => 'Product ID',
         ];
+    }
+
+    public function getGroups()
+    {
+        return $this->hasMany(Group::class, ['id' => 'group_id']);
+    }
+    
+    public function getProducts()
+    {
+        return $this->hasmany(Product::class, ['id' => 'product_id']);
     }
 }

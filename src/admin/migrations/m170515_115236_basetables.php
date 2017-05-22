@@ -32,8 +32,14 @@ class m170515_115236_basetables extends Migration
         $this->createTable('{{%estore_set}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(), // Trousers
-            
         ]);
+        
+        $this->createTable('{{%estore_product_set_ref}}', [
+            'product_id' => $this->integer()->notNull(),
+            'set_id' => $this->integer()->notNull(),
+        ]);
+        
+        $this->addPrimaryKey('estore_product_set_ref_pk', '{{%estore_product_set_ref}}', ['product_id', 'set_id']);
         
         $this->createTable('{{%estore_set_attribute}}', [
             'id' => $this->primaryKey(),
@@ -91,17 +97,14 @@ class m170515_115236_basetables extends Migration
     {
         $this->dropTable('{{%estore_group}}');
         $this->dropTable('{{%estore_product_group_ref}}');
-        $this->dropPrimaryKey('estore_product_group_pk', '{{%estore_product_group_ref}}');
         $this->dropTable('{{%estore_product}}');
+        $this->dropTable('{{%estore_product_set_ref}}');
         $this->dropTable('{{%estore_set}}');
         $this->dropTable('{{%estore_set_attribute}}');
         $this->dropTable('{{%estore_set_attribute_ref}}');
-        $this->dropPrimaryKey('estore_set_attribute_ref_pk', '{{%estore_set_attribute_ref}}');
         $this->dropTable('{{%estore_article}}');
         $this->dropTable('{{%estore_article_attribute_value}}');
-        $this->dropPrimaryKey('estore_article_attribute_value_pk', '{{%estore_article_attribute_value}}');
         $this->dropTable('{{%estore_article_price}}');
-        $this->dropPrimaryKey('estore_article_attribute_value_pk', '{{%estore_article_attribute_value}}');
         $this->dropTable('{{%estore_currency}}');
         $this->dropTable('{{%estore_producer}}');
     }

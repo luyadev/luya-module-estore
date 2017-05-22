@@ -4,6 +4,7 @@ namespace luya\estore\models;
 
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
+use luya\admin\ngrest\plugins\CheckboxRelationActiveQuery;
 
 /**
  * Set.
@@ -20,6 +21,12 @@ class Set extends NgRestModel
      */
     public $i18n = ['name'];
 
+    /**
+     * 
+     * @var array
+     */
+    public $adminSetAttributes = [];
+    
     /**
      * @inheritdoc
      */
@@ -55,6 +62,7 @@ class Set extends NgRestModel
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 255],
+            [['adminSetAttributes'], 'safe'],
         ];
     }
 
@@ -83,8 +91,29 @@ class Set extends NgRestModel
     {
         return [
             ['list', ['name']],
-            [['create', 'update'], ['name']],
+            [['create', 'update'], ['name', 'adminSetAttributes']],
             ['delete', false],
         ];
+    }
+
+    public function ngRestExtraAttributeTypes()
+    {
+        return [
+            'adminSetAttributes' => [
+                'class' => CheckboxRelationActiveQuery::class,
+                'query' => $this->getSetAttributes(),
+                'labelField' => ['name']
+            ]
+        ];
+    }
+
+    public function extraFields()
+    {
+        return ['adminSetAttributes'];
+    }
+    
+    public function getSetAttributes()
+    {
+        return $this->hasMany(SetAttribute::class, ['id' => 'attribute_id'])->viaTable(SetAttributeRef::tableName(), ['set_id' => 'id']);
     }
 }

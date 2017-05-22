@@ -4,6 +4,7 @@ namespace luya\estore\models;
 
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
+use luya\admin\ngrest\plugins\CheckboxRelationActiveQuery;
 
 /**
  * Product.
@@ -22,13 +23,23 @@ class Product extends NgRestModel
     public $i18n = ['name'];
 
     /**
+     * @var array
+     */
+    public $adminGroups = [];
+    
+    /**
+     * @var array
+     */
+    public $adminSets = [];
+    
+    /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'estore_product';
     }
-
+    
     /**
      * @inheritdoc
      */
@@ -58,6 +69,7 @@ class Product extends NgRestModel
             [['name', 'producer_id'], 'required'],
             [['name'], 'string'],
             [['producer_id'], 'integer'],
+            [['adminGroups', 'adminSets'], 'safe'],
         ];
     }
 
@@ -76,10 +88,10 @@ class Product extends NgRestModel
     {
         return [
             'name' => 'text',
-            'producer_id' => 'number',
+            'producer_id' => ['selectModel', 'modelClass' => Producer::class],
         ];
     }
-
+    
     /**
      * @inheritdoc
      */
@@ -87,8 +99,39 @@ class Product extends NgRestModel
     {
         return [
             ['list', ['name', 'producer_id']],
-            [['create', 'update'], ['name', 'producer_id']],
+            [['create', 'update'], ['name', 'producer_id', 'adminGroups', 'adminSets']],
             ['delete', false],
         ];
+    }
+    
+    public function ngRestExtraAttributeTypes()
+    {
+        return [
+            'adminGroups' => [
+                'class' => CheckboxRelationActiveQuery::class,
+                'query' => $this->getGroups(),
+                'labelField' => ['name'],
+            ],
+            'adminSets' => [
+                'class' => CheckboxRelationActiveQuery::class,
+                'query' => $this->getSets(),
+                'labelField' => ['name'],
+            ]
+        ];
+    }
+    
+    public function extraFields()
+    {
+        return ['adminGroups', 'adminSets'];
+    }
+    
+    public function getGroups()
+    {
+        return $this->hasMany(Group::class, ['id' => 'group_id'])->viaTable(ProductGroupRef::tableName(), ['product_id' => 'id']);
+    }
+    
+    public function getSets()
+    {
+        return $this->hasMany(Set::class, ['id' => 'set_id'])->viaTable(ProductSetRef::tableName(), ['product_id' => 'id']);
     }
 }

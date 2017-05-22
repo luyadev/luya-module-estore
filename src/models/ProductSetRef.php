@@ -2,22 +2,20 @@
 
 namespace luya\estore\models;
 
-use Yii;
-
 /**
- * This is the model class for table "estore_set_attribute_ref".
+ * This is the model class for table "estore_product_set_ref".
  *
+ * @property integer $product_id
  * @property integer $set_id
- * @property integer $attribute_id
  */
-class SetAttributeRef extends \yii\db\ActiveRecord
+class ProductSetRef extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'estore_set_attribute_ref';
+        return 'estore_product_set_ref';
     }
 
     /**
@@ -26,8 +24,8 @@ class SetAttributeRef extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['set_id', 'attribute_id'], 'required'],
-            [['set_id', 'attribute_id'], 'integer'],
+            [['product_id', 'set_id'], 'required'],
+            [['product_id', 'set_id'], 'integer'],
         ];
     }
 
@@ -37,8 +35,8 @@ class SetAttributeRef extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'product_id' => 'Product ID',
             'set_id' => 'Set ID',
-            'attribute_id' => 'Attribute ID',
         ];
     }
 }

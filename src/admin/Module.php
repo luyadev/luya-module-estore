@@ -25,17 +25,16 @@ class Module extends \luya\admin\base\Module
     {
         return (new \luya\admin\components\AdminMenuBuilder($this))
         ->node('E-Store', 'store_mall_directory')
-            ->group('Settings')
-                ->itemApi('Groups', 'estoreadmin/group/index', 'label', 'api-estore-group')
-                ->itemApi('Currencies', 'estoreadmin/currency/index', 'label', 'api-estore-currency')
-                ->itemApi('Producers', 'estoreadmin/producer/index', 'label', 'api-estore-producer')
             ->group('Products')
-                ->itemApi('Products', 'estoreadmin/product/index', 'label', 'api-estore-product')
-                ->itemApi('Articles', 'estoreadmin/article/index', 'label', 'api-estore-article')
-                ->itemApi('Prices', 'estoreadmin/article-price/index', 'label', 'api-estore-articleprice')
+                ->itemApi('Groups', 'estoreadmin/group/index', 'folder', 'api-estore-group')
+                ->itemApi('Products', 'estoreadmin/product/index', 'library_books', 'api-estore-product')
+                ->itemApi('Articles', 'estoreadmin/article/index', 'list', 'api-estore-article')
+                ->itemApi('Prices', 'estoreadmin/article-price/index', 'adjust', 'api-estore-articleprice')
+            ->group('Settings')
+                ->itemApi('Currencies', 'estoreadmin/currency/index', 'attach_money', 'api-estore-currency')
+                ->itemApi('Producers', 'estoreadmin/producer/index', 'domain', 'api-estore-producer')
             ->group('Sets')
-                ->itemApi('Sets', 'estoreadmin/set/index', 'label', 'api-estore-set')
-                ->itemApi('Attributes', 'estoreadmin/set-attribute/index', 'label', 'api-estore-setattribute');
+                ->itemApi('Sets', 'estoreadmin/set/index', 'web_asset', 'api-estore-set')
+                ->itemApi('Attributes', 'estoreadmin/set-attribute/index', 'check_box', 'api-estore-setattribute');
     }
-    
 }

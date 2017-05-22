@@ -4,6 +4,7 @@ namespace luya\estore\models;
 
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
+use luya\admin\ngrest\plugins\SelectArray;
 
 /**
  * Set Attribute.
@@ -78,7 +79,10 @@ class SetAttribute extends NgRestModel
     public function ngRestAttributeTypes()
     {
         return [
-            'type' => 'number',
+            'type' => [
+                'class' => SelectArray::class,
+                'data' => [1 => 'Integer', 2 => 'Boolean', 3  => 'String'],
+            ],
             'name' => 'text',
             'values' => 'textarea',
         ];
