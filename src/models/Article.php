@@ -4,12 +4,15 @@ namespace luya\estore\models;
 
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
+use luya\estore\admin\plugins\ArticleAttributesPlugin;
+use luya\estore\models\ArticleAttributeValue;
 
 /**
  * Article.
  * 
  * File has been created with `crud/create` command on LUYA version 1.0.0-dev. 
  *
+ * @property \luya\estore\models\Product $product
  * @property integer $id
  * @property integer $product_id
  * @property text $name
@@ -63,6 +66,7 @@ class Article extends NgRestModel
             [['name'], 'required'],
             [['name'], 'string'],
             [['sku'], 'string', 'max' => 255],
+            [['values'], 'safe']
         ];
     }
 
@@ -87,6 +91,15 @@ class Article extends NgRestModel
         ];
     }
 
+    public function ngRestExtraAttributeTypes()
+    {
+        return [
+            'values' => [
+                'class' => ArticleAttributesPlugin::class,
+            ]  
+        ];
+    }
+    
     /**
      * @inheritdoc
      */
@@ -94,8 +107,58 @@ class Article extends NgRestModel
     {
         return [
             ['list', ['product_id', 'name', 'sku', 'qty_available']],
-            [['create', 'update'], ['product_id', 'name', 'sku', 'qty_available']],
+            [['create', 'update'], ['product_id', 'name', 'sku', 'qty_available', 'values']],
             ['delete', false],
         ];
+    }
+    
+    public function extraFields()
+    {
+        return ['values'];
+    }
+    
+    public function getAttributeValues()
+    {
+        return $this->hasMany(ArticleAttributeValue::class, ['article_id' => 'id']);
+    }
+    
+    public function getValues()
+    {
+        $data = [];
+        foreach ($this->attributeValues as $value) {
+            $data[$value->set_id][$value->attribute_id] = $value->value;
+        }
+        
+        return $data;
+    }
+    
+    public function setValues($data)
+    {
+        if ($this->isNewRecord) {
+            $this->on(self::EVENT_AFTER_INSERT, function() use ($data) {
+                $this->updateSetValues($data); 
+            });
+        } else {
+            $this->updateSetValues($data);
+        }
+    }
+    
+    private function updateSetValues($data)
+    {
+        $this->unlinkAll('attributeValues', true);
+        foreach ($data as $setId => $values) {
+            foreach ($values as $attributeId => $attributeValue) {
+                $model = new ArticleAttributeValue();
+                $model->attribute_id = $attributeId;
+                $model->value = $attributeValue;
+                $model->set_id = $setId;
+                $this->link('attributeValues', $model);
+            }
+        }
+    }
+    
+    public function getProduct()
+    {
+        return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
 }

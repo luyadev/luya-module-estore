@@ -11,6 +11,7 @@ use luya\admin\ngrest\plugins\CheckboxRelationActiveQuery;
  * 
  * File has been created with `crud/create` command on LUYA version 1.0.0-dev. 
  *
+ * @property \luya\estore\models\SetAttribute $setAttributes
  * @property integer $id
  * @property string $name
  */

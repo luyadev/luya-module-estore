@@ -37,4 +37,11 @@ class Module extends \luya\admin\base\Module
                 ->itemApi('Sets', 'estoreadmin/set/index', 'web_asset', 'api-estore-set')
                 ->itemApi('Attributes', 'estoreadmin/set-attribute/index', 'check_box', 'api-estore-setattribute');
     }
+    
+    public function getAdminAssets()
+    {
+        return [
+            'luya\estore\admin\assets\EstoreAdminAsset',
+        ];
+    }
 }

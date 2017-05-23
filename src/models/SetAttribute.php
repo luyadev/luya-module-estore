@@ -5,6 +5,8 @@ namespace luya\estore\models;
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
 use luya\admin\ngrest\plugins\SelectArray;
+use luya\admin\base\TypesInterface;
+use yii\helpers\Json;
 
 /**
  * Set Attribute.
@@ -13,8 +15,10 @@ use luya\admin\ngrest\plugins\SelectArray;
  *
  * @property integer $id
  * @property integer $type
+ * @property string $input
  * @property string $name
- * @property text $values
+ * @property string $values
+ * @property integer $is_i18n
  */
 class SetAttribute extends NgRestModel
 {
@@ -22,7 +26,7 @@ class SetAttribute extends NgRestModel
      * @inheritdoc
      */
     public $i18n = ['name', 'values'];
-
+    
     /**
      * @inheritdoc
      */
@@ -58,13 +62,22 @@ class SetAttribute extends NgRestModel
     public function rules()
     {
         return [
-            [['type'], 'integer'],
-            [['name'], 'required'],
+            [['type', 'is_i18n'], 'integer'],
+            [['input', 'name'], 'required'],
             [['values'], 'string'],
-            [['name'], 'string', 'max' => 255],
+            [['input', 'name'], 'string', 'max' => 255],
         ];
     }
 
+    public function fields()
+    {
+        $fields = parent::fields();
+        $fields['values_json'] = function($model) {
+            return Json::decode($model->values);
+        };
+        return $fields;
+    }
+    
     /**
      * @inheritdoc
      */
@@ -85,6 +98,13 @@ class SetAttribute extends NgRestModel
             ],
             'name' => 'text',
             'values' => 'textarea',
+            'is_i18n' => 'toggleStatus',
+            'input' => ['selectArray', 'data' => [
+                TypesInterface::TYPE_TEXT => 'text',
+                TypesInterface::TYPE_TEXTAREA => 'textarea',
+                TypesInterface::TYPE_CHECKBOX => 'checkbox',
+                TypesInterface::TYPE_SELECT => 'select',
+            ]]
         ];
     }
 
@@ -95,7 +115,7 @@ class SetAttribute extends NgRestModel
     {
         return [
             ['list', ['type', 'name', 'values']],
-            [['create', 'update'], ['type', 'name', 'values']],
+            [['create', 'update'], ['type', 'name', 'values', 'is_i18n', 'input']],
             ['delete', false],
         ];
     }

@@ -44,8 +44,10 @@ class m170515_115236_basetables extends Migration
         $this->createTable('{{%estore_set_attribute}}', [
             'id' => $this->primaryKey(),
             'type' => $this->integer(), // 1 = integer, 2 = boolean, 3 = string
+            'input' => $this->string()->notNull(), // zaa-text, zaa-password
             'name' => $this->string()->notNull(), // Size, Color, Material Type (Jeans), Width, Height
-            'values' => $this->text(), // If its a select dropdown the json can be stored in `values` field.
+            'values' => $this->text(), // If its a select dropdown the json can be stored in `values` field. Optiosn for zaa-text
+            'is_i18n' => $this->boolean()->defaultValue(false),
         ]);
         
         $this->createTable('{{%estore_set_attribute_ref}}', [
@@ -65,11 +67,12 @@ class m170515_115236_basetables extends Migration
         
         $this->createTable('{{%estore_article_attribute_value}}', [
             'article_id' => $this->integer()->notNull(),
+            'set_id' => $this->integer()->notNull(),
             'attribute_id' => $this->integer()->notNull(),
             'value' => $this->text(),
         ]);
         
-        $this->addPrimaryKey('estore_article_attribute_value_pk', '{{%estore_article_attribute_value}}', ['article_id', 'attribute_id']);
+        $this->addPrimaryKey('estore_article_attribute_value_pk', '{{%estore_article_attribute_value}}', ['article_id', 'attribute_id', 'set_id']);
         
         $this->createTable('{{%estore_article_price}}', [
             'article_id' => $this->integer()->notNull(),

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace luya\estore\models;
 
 use Yii;
 
@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "estore_article_attribute_value".
  *
  * @property integer $article_id
+ * @property integer $set_id
  * @property integer $attribute_id
  * @property string $value
  */
@@ -27,8 +28,8 @@ class ArticleAttributeValue extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['article_id', 'attribute_id'], 'required'],
-            [['article_id', 'attribute_id'], 'integer'],
+            [['article_id', 'set_id', 'attribute_id'], 'required'],
+            [['article_id', 'set_id', 'attribute_id'], 'integer'],
             [['value'], 'string'],
         ];
     }
@@ -41,6 +42,7 @@ class ArticleAttributeValue extends \yii\db\ActiveRecord
         return [
             'article_id' => 'Article ID',
             'attribute_id' => 'Attribute ID',
+            'set_id' => 'Set ID',
             'value' => 'Value',
         ];
     }

@@ -84,7 +84,7 @@ class Group extends NgRestModel
     {
         return [
             'parent_group_id' => 'number',
-            'cover_image_id' => 'number',
+            'cover_image_id' => 'image',
             'images_list' => 'imageArray',
             'name' => 'text',
             'teaser' => 'text',

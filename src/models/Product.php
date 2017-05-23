@@ -11,6 +11,7 @@ use luya\admin\ngrest\plugins\CheckboxRelationActiveQuery;
  * 
  * File has been created with `crud/create` command on LUYA version 1.0.0-dev. 
  *
+ * @property \luya\estore\models\Set $sets
  * @property integer $id
  * @property text $name
  * @property integer $producer_id
@@ -57,6 +58,8 @@ class Product extends NgRestModel
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'producer_id' => Yii::t('app', 'Producer ID'),
+            'adminGroups' => 'Categories',
+            'adminSets' => 'Attribute Sets',
         ];
     }
 
