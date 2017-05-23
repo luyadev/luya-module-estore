@@ -7,8 +7,8 @@ use luya\admin\ngrest\base\NgRestModel;
 
 /**
  * Currency.
- * 
- * File has been created with `crud/create` command on LUYA version 1.0.0-dev. 
+ *
+ * File has been created with `crud/create` command on LUYA version 1.0.0-dev.
  *
  * @property integer $id
  * @property smallint $is_base

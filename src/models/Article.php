@@ -9,8 +9,8 @@ use luya\estore\models\ArticleAttributeValue;
 
 /**
  * Article.
- * 
- * File has been created with `crud/create` command on LUYA version 1.0.0-dev. 
+ *
+ * File has been created with `crud/create` command on LUYA version 1.0.0-dev.
  *
  * @property \luya\estore\models\Product $product
  * @property integer $id
@@ -96,7 +96,7 @@ class Article extends NgRestModel
         return [
             'values' => [
                 'class' => ArticleAttributesPlugin::class,
-            ]  
+            ]
         ];
     }
     
@@ -135,8 +135,8 @@ class Article extends NgRestModel
     public function setValues($data)
     {
         if ($this->isNewRecord) {
-            $this->on(self::EVENT_AFTER_INSERT, function() use ($data) {
-                $this->updateSetValues($data); 
+            $this->on(self::EVENT_AFTER_INSERT, function () use ($data) {
+                $this->updateSetValues($data);
             });
         } else {
             $this->updateSetValues($data);

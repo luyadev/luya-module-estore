@@ -10,8 +10,8 @@ use yii\helpers\Json;
 
 /**
  * Set Attribute.
- * 
- * File has been created with `crud/create` command on LUYA version 1.0.0-dev. 
+ *
+ * File has been created with `crud/create` command on LUYA version 1.0.0-dev.
  *
  * @property integer $id
  * @property integer $type
@@ -72,7 +72,7 @@ class SetAttribute extends NgRestModel
     public function fields()
     {
         $fields = parent::fields();
-        $fields['values_json'] = function($model) {
+        $fields['values_json'] = function ($model) {
             return Json::decode($model->values);
         };
         return $fields;

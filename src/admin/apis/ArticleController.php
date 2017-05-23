@@ -4,8 +4,8 @@ namespace luya\estore\admin\apis;
 
 /**
  * Article Controller.
- * 
- * File has been created with `crud/create` command on LUYA version 1.0.0-dev. 
+ *
+ * File has been created with `crud/create` command on LUYA version 1.0.0-dev.
  */
 class ArticleController extends \luya\admin\ngrest\base\Api
 {

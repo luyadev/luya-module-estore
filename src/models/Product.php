@@ -8,8 +8,8 @@ use luya\admin\ngrest\plugins\CheckboxRelationActiveQuery;
 
 /**
  * Product.
- * 
- * File has been created with `crud/create` command on LUYA version 1.0.0-dev. 
+ *
+ * File has been created with `crud/create` command on LUYA version 1.0.0-dev.
  *
  * @property \luya\estore\models\Set $sets
  * @property integer $id
