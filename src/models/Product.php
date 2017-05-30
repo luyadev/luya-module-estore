@@ -123,9 +123,21 @@ class Product extends NgRestModel
         ];
     }
     
+    public function ngRestRelations()
+    {
+        return [
+            ['label' => 'Articles', 'apiEndpoint' => Article::ngRestApiEndpoint(), 'dataProvider' => $this->getArticles()],
+        ];
+    }
+    
     public function extraFields()
     {
         return ['adminGroups', 'adminSets'];
+    }
+    
+    public function getArticles()
+    {
+        return $this->hasMany(Article::class, ['product_id' => 'id']);
     }
     
     public function getGroups()

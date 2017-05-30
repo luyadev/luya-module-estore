@@ -112,6 +112,13 @@ class Article extends NgRestModel
         ];
     }
     
+    public function ngRestRelations()
+    {
+        return [
+            ['label' => 'Prices', 'apiEndpoint' => ArticlePrice::ngRestApiEndpoint(), 'dataProvider' => $this->getPrices()],
+        ];
+    }
+    
     public function extraFields()
     {
         return ['values'];
@@ -160,5 +167,10 @@ class Article extends NgRestModel
     public function getProduct()
     {
         return $this->hasOne(Product::class, ['id' => 'product_id']);
+    }
+
+    public function getPrices()
+    {
+        return $this->hasMany(ArticlePrice::class, ['article_id' => 'id']);
     }
 }
