@@ -68,7 +68,7 @@ class ArticlePrice extends NgRestModel
      */
     public function genericSearchFields()
     {
-        return [''];
+        return [];
     }
 
     /**
