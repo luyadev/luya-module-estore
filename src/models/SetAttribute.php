@@ -97,7 +97,7 @@ class SetAttribute extends NgRestModel
                 'data' => [1 => 'Integer', 2 => 'Boolean', 3  => 'String'],
             ],
             'name' => 'text',
-            'values' => 'textarea',
+            'values' => 'html',
             'is_i18n' => 'toggleStatus',
             'input' => ['selectArray', 'data' => [
                 TypesInterface::TYPE_TEXT => 'text',
