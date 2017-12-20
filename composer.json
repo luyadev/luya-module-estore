@@ -2,7 +2,7 @@
     "minimum-stability" : "RC",
     "name" : "luyadev/luya-module-estore",
     "description" : "E-Store",
-    "type" : "luya-module",
+    "type" : "project",
     "keywords" : ["php", "luya", "module", "cms", "yii2", "yii"],
     "license": "MIT",
     "homepage" : "http://luya.io",
