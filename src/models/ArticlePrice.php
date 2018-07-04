@@ -102,7 +102,7 @@ class ArticlePrice extends NgRestModel
     public function ngRestScopes()
     {
         return [
-            ['list', ['price', 'article_id', 'currency_id']],
+            ['list', ['article_id', 'currency_id', 'price']],
             [['create', 'update'], ['article_id', 'currency_id', 'qty', 'price']],
             ['delete', false],
         ];
