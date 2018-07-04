@@ -5,7 +5,6 @@ namespace luya\estore\models;
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
 use luya\estore\admin\plugins\ArticleAttributesPlugin;
-use luya\estore\models\ArticleAttributeValue;
 
 /**
  * Article.
