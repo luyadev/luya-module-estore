@@ -5,7 +5,7 @@ zaa.directive("estoreAttributes", function() {
 			'model' : '=',
 			'product' : '='
 		},
-		controller: function($scope, $http) {
+		controller: ['$scope', '$http', function($scope, $http) {
 			
 			$scope.$watch('product', function(n, o) {
 				if (n != null && n) {
@@ -25,7 +25,7 @@ zaa.directive("estoreAttributes", function() {
 				});
 			};
 			
-		},
-		templateUrl: 'estoreadmin/article/article-attributes',
+		}],
+		templateUrl: 'estoreadmin/article/article-attributes'
 	}
 });

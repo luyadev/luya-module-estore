@@ -4,6 +4,7 @@ namespace luya\estore\models;
 
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
+use luya\admin\ngrest\plugins\SelectRelationActiveQuery;
 
 /**
  * Article Price.
@@ -17,11 +18,6 @@ use luya\admin\ngrest\base\NgRestModel;
  */
 class ArticlePrice extends NgRestModel
 {
-    /**
-     * @inheritdoc
-     */
-    public $i18n = [''];
-
     /**
      * @inheritdoc
      */
@@ -77,11 +73,27 @@ class ArticlePrice extends NgRestModel
     public function ngRestAttributeTypes()
     {
         return [
-            'article_id' => ['selectModel', 'modelClass' => Article::class],
-            'currency_id' => ['selectModel', 'modelClass' => Currency::class],
+            'article_id' => ['class' => SelectRelationActiveQuery::class, 'query' => $this->getArticle(), 'labelField' => ['name'], 'asyncList' => true],
+            'currency_id' => ['class' => SelectRelationActiveQuery::class, 'query' => $this->getCurrency(), 'labelField' => ['name'], 'asyncList' => true],
             'qty' => 'number',
             'price' => 'decimal',
         ];
+    }
+    
+    /**
+     * @return Article
+     */
+    public function getArticle()
+    {
+        return $this->hasOne(Article::class, ['id' => 'article_id']);
+    }
+    
+    /**
+     * @return Currency
+     */
+    public function getCurrency()
+    {
+        return $this->hasOne(Currency::class, ['id' => 'currency_id']);
     }
 
     /**
@@ -90,7 +102,7 @@ class ArticlePrice extends NgRestModel
     public function ngRestScopes()
     {
         return [
-            ['list', ['price']],
+            ['list', ['article_id', 'currency_id', 'price']],
             [['create', 'update'], ['article_id', 'currency_id', 'qty', 'price']],
             ['delete', false],
         ];
