@@ -50,7 +50,7 @@ class m170515_115236_basetables extends Migration
             'id' => $this->primaryKey(),
             'type' => $this->integer(), // 1 = integer, 2 = boolean, 3 = string
             'input' => $this->string()->notNull(), // zaa-text, zaa-password
-            'code' => $this->string()->notNull(), // size, color, material_type, width, height
+            'code' => $this->string()->unique()->notNull(), // size, color, material_type, width, height
             'name' => $this->string()->notNull(), // Size, Color, Material Type (Jeans), Width, Height
             'values' => $this->text(), // If its a select dropdown the json can be stored in `values` field. Optiosn for zaa-text
             'is_i18n' => $this->boolean()->defaultValue(false),
