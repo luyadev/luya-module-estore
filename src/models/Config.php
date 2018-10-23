@@ -22,7 +22,7 @@ class Config extends NgRestModel
 {
     use RegistryTrait;
 
-    const CONFIG_PLACEHOLDER = 'placeholder_image';
+    const PLACEHOLDER_IMAGE = 'placeholder_image';
 
     /**
      * @inheritdoc
