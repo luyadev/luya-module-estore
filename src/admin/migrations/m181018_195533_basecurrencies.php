@@ -3,12 +3,12 @@
 use yii\db\Migration;
 
 /**
- * Class m181018_195533_basecurrencies
+ * Insert most of the circulating currencies.
  */
 class m181018_195533_basecurrencies extends Migration
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function safeUp()
     {
