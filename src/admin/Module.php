@@ -48,8 +48,8 @@ class Module extends \luya\admin\base\Module
      */
     public function import(ImportControllerInterface $importer)
     {
-        if (!Config::has(Config::CONFIG_PLACEHOLDER)) {
-            Config::set(Config::CONFIG_PLACEHOLDER, '');
+        if (!Config::has(Config::PLACEHOLDER_IMAGE)) {
+            Config::set(Config::PLACEHOLDER_IMAGE, '');
         }
 
         return parent::import($importer);
