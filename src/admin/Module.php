@@ -2,6 +2,9 @@
 
 namespace luya\estore\admin;
 
+use luya\console\interfaces\ImportControllerInterface;
+use luya\estore\models\Config;
+
 /**
  * Estore Admin Module.
  *
@@ -18,7 +21,7 @@ class Module extends \luya\admin\base\Module
         'api-estore-articleprice' => 'luya\estore\admin\apis\ArticlePriceController',
         'api-estore-currency' => 'luya\estore\admin\apis\CurrencyController',
         'api-estore-producer' => 'luya\estore\admin\apis\ProducerController',
-        
+        'api-estore-config' => 'luya\estore\admin\apis\ConfigController',
     ];
     
     public function getMenu()
@@ -33,15 +36,51 @@ class Module extends \luya\admin\base\Module
             ->group('Settings')
                 ->itemApi('Currencies', 'estoreadmin/currency/index', 'attach_money', 'api-estore-currency')
                 ->itemApi('Producers', 'estoreadmin/producer/index', 'domain', 'api-estore-producer')
+                ->itemApi('Config', 'estoreadmin/config/index', 'build', 'api-estore-config')
+
             ->group('Sets')
                 ->itemApi('Sets', 'estoreadmin/set/index', 'web_asset', 'api-estore-set')
                 ->itemApi('Attributes', 'estoreadmin/set-attribute/index', 'check_box', 'api-estore-setattribute');
     }
-    
+
+    /**
+     * @inheritdoc
+     */
+    public function import(ImportControllerInterface $importer)
+    {
+        if (!Config::has(Config::CONFIG_PLACEHOLDER)) {
+            Config::set(Config::CONFIG_PLACEHOLDER, '');
+        }
+
+        return parent::import($importer);
+    }
+
     public function getAdminAssets()
     {
         return [
             'luya\estore\admin\assets\EstoreAdminAsset',
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function onLoad()
+    {
+        self::registerTranslation('estoreadmin*', static::staticBasePath() . '/messages', [
+            'estoreadmin' => 'estoreadmin.php',
+        ]);
+    }
+
+    /**
+     * Translations for CMS admin Module.
+     *
+     * @param string $message
+     * @param array $params
+     * @return string
+     */
+    public static function t($message, array $params = [])
+    {
+        return parent::baseT('estoreadmin', $message, $params);
     }
 }
