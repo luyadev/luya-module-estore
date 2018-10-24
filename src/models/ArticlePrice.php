@@ -40,10 +40,10 @@ class ArticlePrice extends NgRestModel
     public function attributeLabels()
     {
         return [
-            'article_id' => Yii::t('app', 'Article ID'),
-            'currency_id' => Yii::t('app', 'Currency ID'),
-            'qty' => Yii::t('app', 'Qty'),
-            'price' => Yii::t('app', 'Price'),
+            'article_id' => Yii::t('estoreadmin', 'Article ID'),
+            'currency_id' => Yii::t('estoreadmin', 'Currency ID'),
+            'qty' => Yii::t('estoreadmin', 'Qty'),
+            'price' => Yii::t('estoreadmin', 'Price'),
         ];
     }
 

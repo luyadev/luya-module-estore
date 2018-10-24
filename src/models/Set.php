@@ -13,6 +13,7 @@ use luya\admin\ngrest\plugins\CheckboxRelationActiveQuery;
  *
  * @property \luya\estore\models\SetAttribute $setAttributes
  * @property integer $id
+ * @property string $code
  * @property string $name
  */
 class Set extends NgRestModel
@@ -50,8 +51,9 @@ class Set extends NgRestModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
+            'id' => Yii::t('estoreadmin', 'ID'),
+            'code' => Yii::t('estoreadmin', 'Code'),
+            'name' => Yii::t('estoreadmin', 'Name'),
         ];
     }
 
@@ -61,8 +63,9 @@ class Set extends NgRestModel
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['code', 'name'], 'required'],
+            [['code', 'name'], 'string', 'max' => 255],
+            [['code'], 'unique'],
             [['adminSetAttributes'], 'safe'],
         ];
     }

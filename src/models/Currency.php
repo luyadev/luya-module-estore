@@ -11,7 +11,8 @@ use luya\admin\ngrest\base\NgRestModel;
  * File has been created with `crud/create` command on LUYA version 1.0.0-dev.
  *
  * @property integer $id
- * @property smallint $is_base
+ * @property bool $is_base
+ * @property string $iso
  * @property string $name
  * @property float $value
  */
@@ -44,10 +45,11 @@ class Currency extends NgRestModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'is_base' => Yii::t('app', 'Is Base'),
-            'name' => Yii::t('app', 'Name'),
-            'value' => Yii::t('app', 'Value'),
+            'id' => Yii::t('estoreadmin', 'ID'),
+            'is_base' => Yii::t('estoreadmin', 'Is Base'),
+            'iso' => Yii::t('estoreadmin', 'ISO'),
+            'name' => Yii::t('estoreadmin', 'Name'),
+            'value' => Yii::t('estoreadmin', 'Value'),
         ];
     }
 
@@ -58,8 +60,9 @@ class Currency extends NgRestModel
     {
         return [
             [['is_base'], 'integer'],
-            [['name', 'value'], 'required'],
+            [['iso', 'name', 'value'], 'required'],
             [['value'], 'number'],
+            [['iso'], 'string', 'max' => 3],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -69,7 +72,12 @@ class Currency extends NgRestModel
      */
     public function genericSearchFields()
     {
-        return ['name'];
+        return ['iso', 'name'];
+    }
+
+    public function ngRestListOrder()
+    {
+        return ['iso' => SORT_ASC];
     }
 
     /**
@@ -79,6 +87,7 @@ class Currency extends NgRestModel
     {
         return [
             'is_base' => 'toggleStatus',
+            'iso' => 'text',
             'name' => 'text',
             'value' => 'decimal',
         ];
@@ -90,8 +99,8 @@ class Currency extends NgRestModel
     public function ngRestScopes()
     {
         return [
-            ['list', ['is_base', 'name', 'value']],
-            [['create', 'update'], ['is_base', 'name', 'value']],
+            ['list', ['is_base', 'iso', 'name', 'value']],
+            [['create', 'update'], ['is_base', 'iso', 'name', 'value']],
             ['delete', false],
         ];
     }

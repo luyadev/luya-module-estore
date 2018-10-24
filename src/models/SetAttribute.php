@@ -16,12 +16,17 @@ use yii\helpers\Json;
  * @property integer $id
  * @property integer $type
  * @property string $input
+ * @property string $code
  * @property string $name
  * @property string $values
  * @property integer $is_i18n
  */
 class SetAttribute extends NgRestModel
 {
+    const TYPE_INTEGER = 1;
+    const TYPE_BOOLEAN = 2;
+    const TYPE_STRING = 3;
+
     /**
      * @inheritdoc
      */
@@ -30,6 +35,8 @@ class SetAttribute extends NgRestModel
     /**
      * @inheritdoc
      */
+    const C = 1;
+
     public static function tableName()
     {
         return 'estore_set_attribute';
@@ -49,10 +56,11 @@ class SetAttribute extends NgRestModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'type' => Yii::t('app', 'Type'),
-            'name' => Yii::t('app', 'Name'),
-            'values' => Yii::t('app', 'Values'),
+            'id' => Yii::t('estoreadmin', 'ID'),
+            'type' => Yii::t('estoreadmin', 'Type'),
+            'code' => Yii::t('estoreadmin', 'Code'),
+            'name' => Yii::t('estoreadmin', 'Name'),
+            'values' => Yii::t('estoreadmin', 'Values'),
         ];
     }
 
@@ -63,16 +71,17 @@ class SetAttribute extends NgRestModel
     {
         return [
             [['type', 'is_i18n'], 'integer'],
-            [['input', 'name'], 'required'],
+            [['input', 'code', 'name'], 'required'],
             [['values'], 'string'],
-            [['input', 'name'], 'string', 'max' => 255],
+            [['input', 'code', 'name'], 'string', 'max' => 255],
+            [['code'], 'unique'],
         ];
     }
 
     public function fields()
     {
         $fields = parent::fields();
-        $fields['values_json'] = function ($model) {
+        $fields['values_json'] = function (SetAttribute $model) {
             return Json::decode($model->values);
         };
         return $fields;
@@ -94,8 +103,9 @@ class SetAttribute extends NgRestModel
         return [
             'type' => [
                 'class' => SelectArray::class,
-                'data' => [1 => 'Integer', 2 => 'Boolean', 3  => 'String'],
+                'data' => [self::TYPE_INTEGER => 'Integer', self::TYPE_BOOLEAN => 'Boolean', self::TYPE_STRING => 'String'],
             ],
+            'code' => 'text',
             'name' => 'text',
             'values' => 'html',
             'is_i18n' => 'toggleStatus',
@@ -114,8 +124,8 @@ class SetAttribute extends NgRestModel
     public function ngRestScopes()
     {
         return [
-            ['list', ['type', 'name', 'values']],
-            [['create', 'update'], ['type', 'name', 'values', 'is_i18n', 'input']],
+            ['list', ['type', 'code', 'name', 'values']],
+            [['create', 'update'], ['type', 'code', 'name', 'values', 'is_i18n', 'input']],
             ['delete', false],
         ];
     }

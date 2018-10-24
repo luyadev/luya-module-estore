@@ -11,6 +11,8 @@ use Yii;
  * @property integer $set_id
  * @property integer $attribute_id
  * @property string $value
+ *
+ * @property SetAttribute $setAttribute
  */
 class ArticleAttributeValue extends \yii\db\ActiveRecord
 {
@@ -45,5 +47,10 @@ class ArticleAttributeValue extends \yii\db\ActiveRecord
             'set_id' => 'Set ID',
             'value' => 'Value',
         ];
+    }
+
+    public function getSetAttribute()
+    {
+        return $this->hasOne(SetAttribute::class, ['id' => 'attribute_id']);
     }
 }
