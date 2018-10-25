@@ -40,17 +40,10 @@ class ProductPrice extends NgRestModel
     public function attributeLabels()
     {
         return [
-<<<<<<< Updated upstream:src/models/ArticlePrice.php
-            'article_id' => Yii::t('estoreadmin', 'Article ID'),
-            'currency_id' => Yii::t('estoreadmin', 'Currency ID'),
-            'qty' => Yii::t('estoreadmin', 'Qty'),
-            'price' => Yii::t('estoreadmin', 'Price'),
-=======
             'product_id' => Yii::t('app', 'Product ID'),
             'currency_id' => Yii::t('app', 'Currency ID'),
             'qty' => Yii::t('app', 'Qty'),
             'price' => Yii::t('app', 'Price'),
->>>>>>> Stashed changes:src/models/ProductPrice.php
         ];
     }
 
