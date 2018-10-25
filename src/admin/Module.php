@@ -17,8 +17,7 @@ class Module extends \luya\admin\base\Module
         'api-estore-product' => 'luya\estore\admin\apis\ProductController',
         'api-estore-set' => 'luya\estore\admin\apis\SetController',
         'api-estore-setattribute' => 'luya\estore\admin\apis\SetAttributeController',
-        'api-estore-article' => 'luya\estore\admin\apis\ArticleController',
-        'api-estore-articleprice' => 'luya\estore\admin\apis\ArticlePriceController',
+        'api-estore-productprice' => 'luya\estore\admin\apis\ProductPriceController',
         'api-estore-currency' => 'luya\estore\admin\apis\CurrencyController',
         'api-estore-producer' => 'luya\estore\admin\apis\ProducerController',
         'api-estore-config' => 'luya\estore\admin\apis\ConfigController',
@@ -31,8 +30,7 @@ class Module extends \luya\admin\base\Module
             ->group('Products')
                 ->itemApi('Groups', 'estoreadmin/group/index', 'folder', 'api-estore-group')
                 ->itemApi('Products', 'estoreadmin/product/index', 'library_books', 'api-estore-product')
-                ->itemApi('Articles', 'estoreadmin/article/index', 'list', 'api-estore-article')
-                ->itemApi('Prices', 'estoreadmin/article-price/index', 'adjust', 'api-estore-articleprice')
+                ->itemApi('Prices', 'estoreadmin/product-price/index', 'adjust', 'api-estore-productprice')
             ->group('Settings')
                 ->itemApi('Currencies', 'estoreadmin/currency/index', 'attach_money', 'api-estore-currency')
                 ->itemApi('Producers', 'estoreadmin/producer/index', 'domain', 'api-estore-producer')

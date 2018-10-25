@@ -26,8 +26,10 @@ class m170515_115236_basetables extends Migration
         $this->createTable('{{%estore_product}}', [
             'id' => $this->primaryKey(),
             'name' => $this->text()->notNull(), // Unicorm Trousers
-            'producer_id' => $this->integer()->notNull(), // @todo: ref to parent product?
-            'visibility' => $this->integer()->defaultValue(1)->notNull(), // 0 = not visible, 1 visible anywhere, 2 = only in category, 3 only in search
+            'type' => $this->smallInteger()->defaultValue(0)->notNull()->comment('0 = simple, 1 = configurable, 2 = virtual'),
+            'visibility' => $this->smallInteger()->defaultValue(1)->notNull(), // 0 = not visible, 1 visible anywhere, 2 = only in category, 3 only in search
+            'sku' => $this->string(),
+            'qty_available' => $this->integer(),
             'enabled' => $this->boolean()->defaultValue(false)->notNull(),
         ]);
         
@@ -62,38 +64,27 @@ class m170515_115236_basetables extends Migration
         ]);
         
         $this->addPrimaryKey('estore_set_attribute_ref_pk', '{{%estore_set_attribute_ref}}', ['set_id', 'attribute_id']);
-        
-        $this->createTable('{{%estore_article}}', [
-            'id' => $this->primaryKey(),
-            'product_id' => $this->integer(),
-            'name' => $this->text()->notNull(), // Unicorn Trousers Red XXL with Jeans Material
-            'sku' => $this->string(),
-            'qty_available' => $this->integer(),
-            'enabled' => $this->boolean()->defaultValue(false)->notNull(),
-        ]);
 
-        $this->addForeignKey('estore_article_product_id_fk', '{{%estore_article}}', ['product_id'], '{{%estore_product}}', ['id'], 'CASCADE', 'CASCADE');
-
-        $this->createTable('{{%estore_article_attribute_value}}', [
-            'article_id' => $this->integer()->notNull(),
+        $this->createTable('{{%estore_product_attribute_value}}', [
+            'product_id' => $this->integer()->notNull(),
             'set_id' => $this->integer()->notNull(),
             'attribute_id' => $this->integer()->notNull(),
             'value' => $this->text(),
         ]);
         
-        $this->addPrimaryKey('estore_article_attribute_value_pk', '{{%estore_article_attribute_value}}', ['article_id', 'attribute_id', 'set_id']);
-        $this->addForeignKey('estore_article_attribute_value_article_id_fk', '{{%estore_article_attribute_value}}', ['article_id'], '{{%estore_article}}', ['id'], 'CASCADE', 'CASCADE');
-        $this->addForeignKey('estore_article_attribute_value_set_id_fk', '{{%estore_article_attribute_value}}', ['set_id'], '{{%estore_set}}', ['id'], 'CASCADE', 'CASCADE');
-        $this->addForeignKey('estore_article_attribute_value_attribute_id_fk', '{{%estore_article_attribute_value}}', ['attribute_id'], '{{%estore_set_attribute}}', ['id'], 'CASCADE', 'CASCADE');
+        $this->addPrimaryKey('estore_product_attribute_value_pk', '{{%estore_product_attribute_value}}', ['product_id', 'attribute_id', 'set_id']);
+        $this->addForeignKey('estore_product_attribute_value_product_id_fk', '{{%estore_product_attribute_value}}', ['product_id'], '{{%estore_product}}', ['id'], 'CASCADE', 'CASCADE');
+        $this->addForeignKey('estore_product_attribute_value_set_id_fk', '{{%estore_product_attribute_value}}', ['set_id'], '{{%estore_set}}', ['id'], 'CASCADE', 'CASCADE');
+        $this->addForeignKey('estore_product_attribute_value_attribute_id_fk', '{{%estore_product_attribute_value}}', ['attribute_id'], '{{%estore_set_attribute}}', ['id'], 'CASCADE', 'CASCADE');
 
-        $this->createTable('{{%estore_article_price}}', [
-            'article_id' => $this->integer()->notNull(),
+        $this->createTable('{{%estore_product_price}}', [
+            'product_id' => $this->integer()->notNull(),
             'currency_id' => $this->integer()->notNull(),
             'qty' => $this->integer()->notNull()->comment("0 = which means this price counts independent about how many items u have in your basket | 10 = When you hvae 10 or more items in your basket, this price is used to calculate for each item."),
             'price' => $this->float(2)->notNull(),
         ]);
         
-        $this->addPrimaryKey('estore_article_price_pk', '{{%estore_article_price}}', ['article_id', 'currency_id', 'qty']);
+        $this->addPrimaryKey('estore_product_price_pk', '{{%estore_product_price}}', ['product_id', 'currency_id', 'qty']);
         
         $this->createTable('{{%estore_currency}}', [
             'id' => $this->primaryKey(),
@@ -116,11 +107,9 @@ class m170515_115236_basetables extends Migration
         $this->dropTable('{{%estore_product_group_ref}}');
         $this->dropTable('{{%estore_group}}');
         $this->dropTable('{{%estore_product_set_ref}}');
-        $this->dropTable('{{%estore_product}}');
         $this->dropTable('{{%estore_product_attribute_value}}');
-        $this->dropTable('{{%estore_article}}');
-        $this->dropTable('{{%estore_article_attribute_value}}');
-        $this->dropTable('{{%estore_article_price}}');
+        $this->dropTable('{{%estore_product_price}}');
+        $this->dropTable('{{%estore_product}}');
         $this->dropTable('{{%estore_set_attribute_ref}}');
         $this->dropTable('{{%estore_set}}');
         $this->dropTable('{{%estore_set_attribute}}');
