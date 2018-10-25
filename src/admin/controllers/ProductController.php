@@ -13,4 +13,9 @@ class ProductController extends \luya\admin\ngrest\base\Controller
      * @var string The path to the model which is the provider for the rules and fields.
      */
     public $modelClass = 'luya\estore\models\Product';
+    
+    public function actionProductAttributes()
+    {
+        return $this->render('productattribute');
+    }
 }

@@ -13,11 +13,11 @@ class ProductAttributesPlugin extends Plugin
     
     public function renderCreate($id, $ngModel)
     {
-        return $this->createFormTag('estore-attributes', $id, $ngModel, ['product' => 'data.create.product_id']);
+        return $this->createFormTag('estore-attributes', $id, $ngModel, []);
     }
     
     public function renderUpdate($id, $ngModel)
     {
-        return $this->createFormTag('estore-attributes', $id, $ngModel, ['product' => 'data.update.product_id']);
+        return $this->createFormTag('estore-attributes', $id, $ngModel, ['product' => 'data.updateId']);
     }
 }

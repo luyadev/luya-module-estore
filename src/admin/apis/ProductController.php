@@ -14,11 +14,10 @@ class ProductController extends \luya\admin\ngrest\base\Api
      */
     public $modelClass = 'luya\estore\models\Product';
     
-    
     /**
      *
-     * @param unknown $id
-     * @return unknown
+     * @param int $id
+     * @return array
      */
     public function actionAttributes($id)
     {

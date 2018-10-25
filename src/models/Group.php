@@ -14,6 +14,7 @@ use luya\admin\ngrest\base\NgRestModel;
  * @property integer $parent_group_id
  * @property integer $cover_image_id
  * @property string $images_list
+ * @property string $code
  * @property string $name
  * @property string $teaser
  * @property string $text
@@ -51,6 +52,7 @@ class Group extends NgRestModel
             'parent_group_id' => Yii::t('estoreadmin', 'Parent Group ID'),
             'cover_image_id' => Yii::t('estoreadmin', 'Cover Image ID'),
             'images_list' => Yii::t('estoreadmin', 'Images List'),
+            'code' => Yii::t('estoreadmin', 'Code'),
             'name' => Yii::t('estoreadmin', 'Name'),
             'teaser' => Yii::t('estoreadmin', 'Teaser'),
             'text' => Yii::t('estoreadmin', 'Text'),
@@ -64,8 +66,8 @@ class Group extends NgRestModel
     {
         return [
             [['parent_group_id', 'cover_image_id'], 'integer'],
-            [['images_list', 'name', 'teaser', 'text'], 'string'],
-            [['name'], 'required'],
+            [['images_list', 'name', 'teaser', 'text', 'code'], 'string'],
+            [['name', 'code'], 'required'],
         ];
     }
 
@@ -74,7 +76,7 @@ class Group extends NgRestModel
      */
     public function genericSearchFields()
     {
-        return ['images_list', 'name', 'teaser', 'text'];
+        return ['images_list', 'name', 'code', 'teaser', 'text'];
     }
 
     /**
@@ -86,6 +88,7 @@ class Group extends NgRestModel
             'parent_group_id' => 'number',
             'cover_image_id' => 'image',
             'images_list' => 'imageArray',
+            'code' => 'slug',
             'name' => 'text',
             'teaser' => 'text',
             'text' => 'textarea',
@@ -99,7 +102,7 @@ class Group extends NgRestModel
     {
         return [
             ['list', ['parent_group_id', 'cover_image_id', 'images_list', 'name', 'teaser', 'text']],
-            [['create', 'update'], ['parent_group_id', 'cover_image_id', 'images_list', 'name', 'teaser', 'text']],
+            [['create', 'update'], ['parent_group_id', 'cover_image_id', 'images_list', 'code', 'name', 'teaser', 'text']],
             ['delete', false],
         ];
     }

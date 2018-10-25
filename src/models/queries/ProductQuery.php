@@ -9,7 +9,7 @@ class ProductQuery extends NgRestActiveQuery
 {
     public function actives()
     {
-        return $this->andWhere(['enabled' => 1]);
+        return $this->andWhere(['enabled' => true]);
     }
 
     public function category($categoryId)

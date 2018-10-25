@@ -11,6 +11,7 @@ class m170515_115236_basetables extends Migration
             'parent_group_id' => $this->integer()->defaultValue(0),
             'cover_image_id' => $this->integer(),
             'images_list' => $this->text(),
+            'code' => $this->string()->unique()->notNull(), // textiles
             'name' => $this->text()->notNull(), // Textiles
             'teaser' => $this->text(),
             'text' => $this->text(),
@@ -27,6 +28,7 @@ class m170515_115236_basetables extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->text()->notNull(), // Unicorm Trousers
             'type' => $this->smallInteger()->defaultValue(0)->notNull()->comment('0 = simple, 1 = configurable, 2 = virtual'),
+            'producer_id' => $this->integer()->notNull(),
             'visibility' => $this->smallInteger()->defaultValue(1)->notNull(), // 0 = not visible, 1 visible anywhere, 2 = only in category, 3 only in search
             'sku' => $this->string(),
             'qty_available' => $this->integer(),

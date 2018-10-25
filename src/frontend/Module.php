@@ -9,4 +9,25 @@ namespace luya\estore\frontend;
  */
 class Module extends \luya\base\Module
 {
+    /**
+     * @inheritdoc
+     */
+    public static function onLoad()
+    {
+        self::registerTranslation('estoreadmin*', static::staticBasePath() . '/messages', [
+            'estoreadmin' => 'estoreadmin.php',
+        ]);
+    }
+
+    /**
+     * Translations for CMS admin Module.
+     *
+     * @param string $message
+     * @param array $params
+     * @return string
+     */
+    public static function t($message, array $params = [])
+    {
+        return parent::baseT('estoreadmin', $message, $params);
+    }
 }

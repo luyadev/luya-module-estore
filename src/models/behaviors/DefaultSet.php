@@ -2,6 +2,7 @@
 
 namespace luya\estore\models\behaviors;
 
+use luya\admin\image\Item;
 use luya\estore\models\Article;
 use Yii;
 use luya\estore\models\Config;
@@ -20,9 +21,9 @@ class DefaultSet extends Behavior
     /**
      * @return bool|\luya\admin\image\Item
      */
-    private function getImage($code)
+    private function getImage($type)
     {
-        $image = Yii::$app->storage->getImage($this->owner->getData($code));
+        $image = Yii::$app->storage->getImage($this->owner->getData($type));
 
         if (!$image) {
             $image = Yii::$app->storage->getImage(Config::get(Config::PLACEHOLDER_IMAGE));
@@ -38,11 +39,21 @@ class DefaultSet extends Behavior
 
     public function getSmallImage()
     {
-        return $this->getImage('small_image')->applyFilter(\luya\admin\filters\MediumThumbnail::identifier());
+        $image = $this->getImage('small_image');
+        if (!$image) {
+            return false;
+        }
+    
+        return $image->applyFilter(\luya\admin\filters\MediumThumbnail::identifier());
     }
 
     public function getThumbnail()
     {
-        return $this->getImage('thumbnail')->applyFilter(\luya\admin\filters\SmallCrop::identifier());
+        $image = $this->getImage('thumbnail');
+        if (!$image) {
+            return false;
+        }
+    
+        return $image->applyFilter(\luya\admin\filters\SmallCrop::identifier());
     }
 }
