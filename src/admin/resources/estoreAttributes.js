@@ -9,7 +9,7 @@ zaa.directive("estoreAttributes", function() {
 			
 			$scope.$watch('product', function(n, o) {
 				if (n != null && n) {
-					$scope.getArticleAttributesData(n);
+					$scope.getProductAttributesData(n);
 				}
 			});
 			
@@ -19,13 +19,13 @@ zaa.directive("estoreAttributes", function() {
 				}
 			});
 			
-			$scope.getArticleAttributesData = function(id) {
+			$scope.getProductAttributesData = function(id) {
 				$http.get('admin/api-estore-product/attributes?id=' + id).then(function(r) {
 					$scope.data = r.data;
 				});
 			};
 			
 		}],
-		templateUrl: 'estoreadmin/article/article-attributes'
+		templateUrl: 'estoreadmin/product/product-attributes'
 	}
 });

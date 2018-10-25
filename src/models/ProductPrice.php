@@ -7,23 +7,23 @@ use luya\admin\ngrest\base\NgRestModel;
 use luya\admin\ngrest\plugins\SelectRelationActiveQuery;
 
 /**
- * Article Price.
+ * Product Price.
  *
  * File has been created with `crud/create` command on LUYA version 1.0.0-dev.
  *
- * @property integer $article_id
+ * @property integer $product_id
  * @property integer $currency_id
  * @property integer $qty
  * @property float $price
  */
-class ArticlePrice extends NgRestModel
+class ProductPrice extends NgRestModel
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'estore_article_price';
+        return 'estore_product_price';
     }
 
     /**
@@ -31,7 +31,7 @@ class ArticlePrice extends NgRestModel
      */
     public static function ngRestApiEndpoint()
     {
-        return 'api-estore-articleprice';
+        return 'api-estore-productprice';
     }
 
     /**
@@ -40,10 +40,17 @@ class ArticlePrice extends NgRestModel
     public function attributeLabels()
     {
         return [
+<<<<<<< Updated upstream:src/models/ArticlePrice.php
             'article_id' => Yii::t('estoreadmin', 'Article ID'),
             'currency_id' => Yii::t('estoreadmin', 'Currency ID'),
             'qty' => Yii::t('estoreadmin', 'Qty'),
             'price' => Yii::t('estoreadmin', 'Price'),
+=======
+            'product_id' => Yii::t('app', 'Product ID'),
+            'currency_id' => Yii::t('app', 'Currency ID'),
+            'qty' => Yii::t('app', 'Qty'),
+            'price' => Yii::t('app', 'Price'),
+>>>>>>> Stashed changes:src/models/ProductPrice.php
         ];
     }
 
@@ -53,8 +60,8 @@ class ArticlePrice extends NgRestModel
     public function rules()
     {
         return [
-            [['article_id', 'currency_id', 'qty', 'price'], 'required'],
-            [['article_id', 'currency_id', 'qty'], 'integer'],
+            [['product_id', 'currency_id', 'qty', 'price'], 'required'],
+            [['product_id', 'currency_id', 'qty'], 'integer'],
             [['price'], 'number'],
         ];
     }
@@ -73,7 +80,7 @@ class ArticlePrice extends NgRestModel
     public function ngRestAttributeTypes()
     {
         return [
-            'article_id' => ['class' => SelectRelationActiveQuery::class, 'query' => $this->getArticle(), 'labelField' => ['name'], 'asyncList' => true],
+            'product_id' => ['class' => SelectRelationActiveQuery::class, 'query' => $this->getProduct(), 'labelField' => ['name'], 'asyncList' => true],
             'currency_id' => ['class' => SelectRelationActiveQuery::class, 'query' => $this->getCurrency(), 'labelField' => ['name'], 'asyncList' => true],
             'qty' => 'number',
             'price' => 'decimal',
@@ -81,11 +88,11 @@ class ArticlePrice extends NgRestModel
     }
     
     /**
-     * @return Article
+     * @return Product
      */
-    public function getArticle()
+    public function getProduct()
     {
-        return $this->hasOne(Article::class, ['id' => 'article_id']);
+        return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
     
     /**
@@ -102,8 +109,8 @@ class ArticlePrice extends NgRestModel
     public function ngRestScopes()
     {
         return [
-            ['list', ['article_id', 'currency_id', 'price']],
-            [['create', 'update'], ['article_id', 'currency_id', 'qty', 'price']],
+            ['list', ['product_id', 'currency_id', 'price']],
+            [['create', 'update'], ['product_id', 'currency_id', 'qty', 'price']],
             ['delete', false],
         ];
     }

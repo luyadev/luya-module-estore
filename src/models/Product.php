@@ -155,7 +155,7 @@ class Product extends NgRestModel
     public function ngRestRelations()
     {
         return [
-            ['label' => 'Articles', 'apiEndpoint' => Article::ngRestApiEndpoint(), 'dataProvider' => $this->getArticles()],
+            ['label' => 'Products', 'apiEndpoint' => Product::ngRestApiEndpoint(), 'dataProvider' => $this->getproducts()],
         ];
     }
 
@@ -164,9 +164,9 @@ class Product extends NgRestModel
         return ['adminGroups', 'adminSets'];
     }
     
-    public function getArticles()
+    public function getProducts()
     {
-        return $this->hasMany(Article::class, ['product_id' => 'id']);
+        return $this->hasMany(Product::class, ['product_id' => 'id']);
     }
 
     public function getGroups()

@@ -4,7 +4,7 @@ namespace luya\estore\admin\plugins;
 
 use luya\admin\ngrest\base\Plugin;
 
-class ArticleAttributesPlugin extends Plugin
+class ProductAttributesPlugin extends Plugin
 {
     public function renderList($id, $ngModel)
     {
