@@ -44,4 +44,23 @@ class Module extends \luya\admin\base\Module
             'luya\estore\admin\assets\EstoreAdminAsset',
         ];
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function onLoad()
+    {
+        self::registerTranslation('estoreadmin*', static::staticBasePath() . '/messages', [
+            'estoreadmin' => 'estoreadmin.php',
+        ]);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public static function t($message, array $params = [])
+    {
+        return parent::baseT('estoreadmin', $message, $params);
+    }
+}	
 }
