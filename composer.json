@@ -14,7 +14,7 @@
         }
     ],
     "require" : {
-        "luyadev/luya-module-admin" : "^1.0@dev"
+        "luyadev/luya-module-admin" : "dev-master"
     },
     "require-dev" : {
         "luyadev/luya-testsuite" : "~1.0.0"
