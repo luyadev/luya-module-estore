@@ -6,6 +6,14 @@ Connect the E-Store module to an existing LUYA Instance with or without CMS. The
 
 *For now, you have to create your own controllers and actions in order to access, list or display the models*
 
+Things to consider in future development:
+
++ VAT
++ Frontend Controllers
++ Frontend Widgets
++ Mechanism to get all Article Groups
++ Language handling based on Admin Ui Language Input.
+
 ## Installation
 
 Install the module trough composer:
